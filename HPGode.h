@@ -52,7 +52,7 @@
 */
 
 void ode4u( 
-  void (*ode_fctn)(float *, float ,  float *, float *, float *, float *), // the ode function
+  void (*ode_fctn)(float *, float,  float *, float *, float *, float *), // the ode function
   float  *time,      // a vector of time values
   float  *x0,        // the initial state vector
   float  *u[],       // the vector of inputs at each instant in time
