@@ -25,12 +25,12 @@
 /*
   ode4u - solve a system of nonhomogeneous ordinary differential equations 
   using the 4th order Runge-Kutta method.  
- 
+  
    Input Variable      Description                         
    --------------      ----------- 
-       dxdt          : a function of the form dxdt(t,x,u,params,dxdt)
-                       which provides the state derivative given 
-                       the state, x, and the time, t  
+   void (*ode_fctn)( float  *dxdt, float  t, float  *x, float  *u, float  *params)
+      *ode_fctn      : a function which provides the state derivative given 
+                       the state x, the time t, the input u, and other  params
        time          : a vector of points in time at which the solution 
                        is computed 
         x0           : the initial value of the states 
@@ -52,13 +52,17 @@
 */
 
 void ode4u( 
-  void  (*dxdt)(),   // the ode function 
-  double *time,      // a vector of time values
-  double *x0,        // the initial state vector
-  double **u,        // the vector of inputs at each point in time
-  double *params,    // a vector of other paramter values
-  int points,        // the number if time values
+  void (*ode_fctn)(float *, float ,  float *, float *, float *, float *), // the ode function
+  float  *time,      // a vector of time values
+  float  *x0,        // the initial state vector
+  float  *u[],       // the vector of inputs at each instant in time
+  float  *x_sol[],   // the vector of the solution at each instant in time
+  float  *x_drv[],   // the vector of the state derivitive at each instant in time
+  float  *y[],       // outputs
+  float  *c,         // a vector of constants
+  int N,             // the number if time values
   int n,             // the dimension of the state vector
-  int m              // the number of inputs 
-  double **x_sol     // the vector of the solution at each point in time
+  int m,             // the number of inputs 
+  int l 
 );
+

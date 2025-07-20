@@ -1296,7 +1296,7 @@ int     points, N;
         free_matrix(time,1,points,1,N);
 }
 
-                /*      Put  The  Bias  Trend  Back
+                //      Put  The  Bias  Trend  Back
 
         for (i=1;i<=2*m;i++) {
                 data = (float) i;

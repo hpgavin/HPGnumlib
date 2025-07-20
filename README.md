@@ -8,5 +8,6 @@ This library of functions includes C source and header files for:
 * SVD, LU and LDL decomposition, matrix products, Legndre polynomials, (HPGmatrix)
 * random samples, (HPGrandom)
 * finite differences, band-pass filtering, FFT, detrending, (HPGsignal)
+* ordinary differential equations (initial value problems), (HPGode)
 * ANSI color and file management, (HPGutil)
 * memorly allocation from Numerical Recipes (NRutil)
