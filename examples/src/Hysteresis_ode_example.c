@@ -18,6 +18,8 @@
 #include "../../HPGsignal.h"
 #include "../../HPGmatrix.h"
 
+#define sgn(x) (x < 0) ? -1 : (x > 0)
+
 void Hysteresis_sys(float *dxdt, float t, float *x, float *ui, float *y, float *c)
 // Hysteresis_sys
 // compute the state derivitive of a Hysteresis nonlinear dynamical system 
@@ -46,8 +48,8 @@ void Hysteresis_sys(float *dxdt, float t, float *x, float *ui, float *y, float *
 
   // o.d.e's
   dxdt[1] =  dr; 
-  dxdt[2] = -fi - aS
-  dxdt[3] =  (1 - pow(z,3.0) * sign(dr) ) * dr / cD;  // inelastic force derivitive
+  dxdt[2] = -fi - aS;
+  dxdt[3] =  (1 - pow(z,3.0) * sgn(dr) ) * dr / cD;  // inelastic force derivitive
 
   // other responses of interest
   y[1] = fi; 
@@ -76,7 +78,7 @@ char    *argv[];
   // forcing
   float  Tp = 1.0,                   // forcing pulse period         s
          Ap = 1.0;                   // forcing pulse amplitude     m/s^2
-  float *as; 
+  float *aS, **ui; 
 
   float   *c;                        // constants
   float   *time;                     // time 
@@ -90,7 +92,7 @@ char    *argv[];
   // memory allocation 
   c     = vector(1,3);               // constants
   time  = vector(1,N);               // time
-   as   = vector(1,N);               // forcing pin acceleration 
+   aS   = vector(1,N);               // forcing pin acceleration 
    ui   = matrix(1,m,1,N);           // forcing pin acceleration 
   x0    = vector(1,n);               // initial state vector
   x_drv = matrix(1,n,1,N);           // state derivitive solution
@@ -106,10 +108,10 @@ char    *argv[];
   for(j=1;j<=N;j++) time[j] = (j-1)*dt; 
 
   // forcing 
-  for(j=1;j<=N;j++)              as[j] = 0.0;
-  for(j=1;j<=floor(Tp/dt);j++)   as[j] = -Ap*sin(2*pi*time[j]/Tp); 
+  for(j=1;j<=N;j++)              aS[j] = 0.0;
+  for(j=1;j<=floor(Tp/dt);j++)   aS[j] = -Ap*sin(2*PI*time[j]/Tp); 
 
-  for(j=1;j<=N;j++) ui[1][j] = as[j];  // input to the ode solver
+  for(j=1;j<=N;j++) ui[1][j] = aS[j];  // input to the ode solver
 
   // initial state
   x0[1] = 0.0;         //  r
@@ -130,7 +132,7 @@ char    *argv[];
   fprintf(fp,"\n");
   for(j=1;j<=N;j++) {
     fprintf(fp,"%12.5e\t", time[j] ); 
-    fprintf(fp,"%12.5e\t", as[j], ); 
+    fprintf(fp,"%12.5e\t", aS[j] ); 
     for(i=1;i<=n;i++) fprintf(fp,"%12.5e\t", x_drv[i][j] ); 
     for(i=1;i<=n;i++) fprintf(fp,"%12.5e\t", x_sol[i][j] ); 
     for(i=1;i<=l;i++) fprintf(fp,"%12.5e\t", y[i][j] ); 
@@ -140,9 +142,6 @@ char    *argv[];
   fclose(fp);  // close the output data file
 
   // de-allocate memory
-  free_vector(  u,1,N);
-  free_vector( du,1,N);
-  free_vector(ddu,1,N);
   free_vector(x0,1,n); 
   free_matrix(x_sol,1,n,1,N);
   free_matrix(x_drv,1,n,1,N);
