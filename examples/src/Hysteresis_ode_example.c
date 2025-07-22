@@ -73,7 +73,7 @@ char    *argv[];
   int     N  = floor(T/dt);          // number of time points
 
   // forcing
-  float  Tp = 1.0,                   // forcing pulse period         s
+  float  Tp = 0.5,                   // forcing pulse period         s
          Ap = 1.0;                   // forcing pulse amplitude     m/s^2
   float *aS, **ui; 
 
@@ -106,7 +106,7 @@ char    *argv[];
 
   // forcing 
   for(j=1;j<=N;j++)              aS[j] = 0.0;
-  for(j=1;j<=floor(Tp/dt);j++)   aS[j] = -Ap*sin(2*PI*time[j]/Tp); 
+  for(j=1;j<=floor(Tp/dt);j++)   aS[j] = -Ap*sin(2.0*PI*time[j]/Tp); 
 
   for(j=1;j<=N;j++) ui[1][j] = aS[j];  // input to the ode solver
 
