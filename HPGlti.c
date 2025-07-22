@@ -226,13 +226,3 @@ void c2d( float	**A, float **B, float sr, int n, int m )
 }
 
 
-/* SGN - return the sign of x    28 Oct 03
------------------------------------------------------------------------------*/
-float  sgn( float x )
-{
-  if (x > 0.0)  return  1.0 ;
-  if (x < 0.0)  return -1.0 ;
-  if (x == 0.0)  return  0.0 ;
-  return(0.0);
-}
-

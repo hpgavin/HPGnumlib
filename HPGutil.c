@@ -383,6 +383,38 @@ void chOwnGrpMod (const char *file_path, int mode)
       printf("chmod fail \n");
   }
 }
+
+/*
+ * SGN - return the sign of x    28 Oct 03
+ */
+float  sgn( float x )
+{
+  if (x > 0.0)  return  1.0 ;
+  if (x < 0.0)  return -1.0 ;
+  if (x == 0.0)  return  0.0 ;
+  return(0.0);
+}
+
+
+
+/* CDIFF : central differences for a vector
+ */
+float *cDiff ( float *u, int n, float h )
+{
+        int     i;
+        float   *y;
+        
+        y = vector(1,n);
+
+        y[1] = (u[2] - u[1]) / h;
+        
+        for (i=2;i<n;i++)       y[i] = 0.5 * (u[i+1] - u[i-1]) / h;
+        
+        y[n] = (u[n] - u[n-1]) / h;
+
+        return y;
+}
+
  
 
 /* 

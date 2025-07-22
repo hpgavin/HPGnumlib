@@ -5,6 +5,8 @@
 #include <math.h>
 #include <time.h>
 
+#define PI 3.14159265358979323846264338327950288419716939937510
+
 #define MAXL 256
 
 #define ANSI_SYS	1	/*  compile for ANSI_SYS driver; 0: don't */
@@ -83,6 +85,12 @@ time_t getTime( char s[], int y, int m, int d, int hr, int mn, int sc, int os );
 void chOwnGrpMod (const char *file_path, int mode);
 
 void enter_esc_to_exit(void);
+
+
+float  sgn( float x );
+
+
+float *cDiff ( float *u, int n, float h );
 
 
 /*  

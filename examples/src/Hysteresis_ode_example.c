@@ -15,8 +15,7 @@
 
 #include "../../NRutil.h"
 #include "../../HPGode.h"
-#include "../../HPGsignal.h"
-#include "../../HPGmatrix.h"
+#include "../../HPGutil.h"
 
 #define sgn(x) (x < 0) ? -1 : (x > 0)
 
@@ -49,7 +48,7 @@ void Hysteresis_sys(float *dxdt, float t, float *x, float *ui, float *y, float *
   // o.d.e's
   dxdt[1] =  dr; 
   dxdt[2] = -fi - aS;
-  dxdt[3] =  (1 - pow(z,3.0) * sgn(dr) ) * dr / cD;  // inelastic force derivitive
+  dxdt[3] =  ( 1.0 - pow(z,3.0)*sgn(dr) ) * dr / cD;  // sliding force derivitive
 
   // other responses of interest
   y[1] = fi; 
@@ -125,7 +124,7 @@ char    *argv[];
   // write results to a file
   j = 1;
   fp = fopen("Hysteresis_sys_data.txt","w"); 
-  fprintf(fp,"%% (1) time\t(2) as\t\t");
+  fprintf(fp,"%% (1) time\t(2) aS\t\t");
   for(i=1;i<=n;i++) fprintf(fp,"(%d) x_drv_%d\t",    2+i , i ); 
   for(i=1;i<=n;i++) fprintf(fp,"(%d) x_sol_%d\t",  2+n+i , i ); 
   for(i=1;i<=l;i++) fprintf(fp,"(%d) y_%d\t",    2+2*n+i , i ); 
