@@ -124,23 +124,31 @@ char    *argv[];
   // time, s 
   for(j=1;j<=N;j++) time[j] = (j-1)*dt; 
 
+
   // forcing 
+printf("6\n");
   for(j=1;j<=N;j++) 
     u[j] = 0.2 * cl * sin(w*time[j]) * pow( sin(PI*time[j]/T) , 2.0 );
+printf("7\n");
    du = cDiff(u,N,dt);
+printf("7a\n");
   ddu = cDiff(du,N,dt);
+printf("8\n");
   for(j=1;j<=N;j++) ui[1][j] = ddu[j];  // input to the ode solver
 
+printf("9\n");
   // initial state
   x0[1] = 0.01*2*PI;   //  q
   x0[2] = 0.0;         // dq
   x0[3] = 0.0;         // du
   x0[4] = 0.0;         //  u
 
+printf("0\n");
 
   // solve the system of o.d.e's 
   ode4u( Mathieu_sys, time, x0, ui, x_drv, x_sol, y, c, N, n,m,l );
 
+printf("a\n");
 
   // write results to a file
   j = 1;

@@ -17,6 +17,7 @@
 */
 
 #include "HPGutil.h"
+#include "NRutil.h"
 #include <string.h>
 #include <time.h>
 
