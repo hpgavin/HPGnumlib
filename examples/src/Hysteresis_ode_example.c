@@ -17,8 +17,6 @@
 #include "../../HPGode.h"
 #include "../../HPGutil.h"
 
-#define sgn(x) (x < 0) ? -1 : (x > 0)
-
 void Hysteresis_sys(float *dxdt, float t, float *x, float *ui, float *y, float *c)
 // Hysteresis_sys
 // compute the state derivitive of a Hysteresis nonlinear dynamical system 

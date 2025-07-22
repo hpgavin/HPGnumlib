@@ -16,6 +16,8 @@
 #include "../../NRutil.h"
 #include "../../HPGode.h"
 #include "../../HPGutil.h"
+#include "../../HPGsignal.h"
+#include "../../HPGmatrix.h"
 
 void Mathieu_sys(float *dxdt, float t, float *x, float *ui, float *y, float *c)
 // Mathiew_sys
